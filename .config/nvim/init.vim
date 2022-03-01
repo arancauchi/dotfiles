@@ -13,7 +13,9 @@ call plug#begin()
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-surround'
   Plug 'wookayin/fzf-ripgrep.vim'
+  Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 let NERDTreeShowHidden=1
@@ -44,4 +46,5 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 
 nnoremap <leader>r :source $MYVIMRC<CR>
 
+nmap s <Plug>(easymotion-sn)
 

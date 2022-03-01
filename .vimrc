@@ -3,17 +3,16 @@ set scrolloff=3
 " Remap undo
 map U <C-R>
 map 0 ^
-map Q gq
+
 nnoremap <expr> mm (line('$')/2).'G'.'zz'
 nnoremap <expr> MM (line('$')*0.75).'G'.'zz'
-" paste always reads from the last yanked register in normal and visual modes
-vnoremap p "0p
-vnoremap P "0P
-nnoremap p "0p
-nnoremap P "0P
-" change always sends  to the null register
-nnoremap c "_c
-nnoremap C "_C
+
+" change and delete always sends to the null register
+" yank uses system clipboard, so it now mimics delete rather than cut/paste
+noremap c "_c
+noremap C "_C
+noremap d "_d
+noremap D "_D
 
 cnoremap <C-j> <C-n>
 cnoremap <C-k> <C-p>
@@ -33,7 +32,7 @@ set noerrorbells
 set showmode
 set ignorecase
 set smartcase
-set clipboard+=unnamed
+set clipboard=unnamedplus
 set incsearch
 set expandtab
 set shiftwidth=2
