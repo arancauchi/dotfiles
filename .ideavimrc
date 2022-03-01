@@ -1,0 +1,7 @@
+source ~/.vimrc
+
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+
+set easymotion
+set surround
