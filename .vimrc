@@ -15,8 +15,17 @@ nnoremap P "0P
 nnoremap c "_c
 nnoremap C "_C
 
-map <C-j> :cn<CR>
-map <C-k> :cp<CR>
+cnoremap <C-j> <C-n>
+cnoremap <C-k> <C-p>
+
+nnoremap <C-j> <C-n>
+nnoremap <C-k> <C-p>
+
+map <leader>n :tabnew<cr>
+map <leader>t :tabn<cr>
+map tt :tabn<cr>
+map nn :tabnew<cr>
+map <Leader>q :q<cr>
 
 set timeoutlen=1000
 set visualbell
@@ -26,6 +35,7 @@ set ignorecase
 set smartcase
 set clipboard+=unnamed
 set incsearch
-
+set expandtab
+set shiftwidth=2
 set number relativenumber
 set nu rnu
