@@ -9,13 +9,14 @@ call plug#begin()
   Plug 'ellisonleao/gruvbox.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'vim-airline/vim-airline'
-  Plug 'nvim-telescope/telescope.nvim'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-surround'
   Plug 'wookayin/fzf-ripgrep.vim'
   Plug 'easymotion/vim-easymotion'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
 
 let NERDTreeShowHidden=1
@@ -45,6 +46,10 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 
 nnoremap <leader>r :source $MYVIMRC<CR>
+nnoremap <leader>w :w<CR>
 
 nmap s <Plug>(easymotion-sn)
 
+set guicursor=i:ver1
+set guicursor=i:block
+set guicursor+=i:blinkon1

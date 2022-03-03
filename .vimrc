@@ -11,8 +11,6 @@ nnoremap <expr> MM (line('$')*0.75).'G'.'zz'
 " yank uses system clipboard, so it now mimics delete rather than cut/paste
 noremap c "_c
 noremap C "_C
-noremap d "_d
-noremap D "_D
 
 cnoremap <C-j> <C-n>
 cnoremap <C-k> <C-p>
@@ -26,7 +24,6 @@ map tt :tabn<cr>
 map nn :tabnew<cr>
 map <Leader>q :q<cr>
 
-set timeoutlen=1000
 set visualbell
 set noerrorbells
 set showmode
@@ -38,3 +35,12 @@ set expandtab
 set shiftwidth=2
 set number relativenumber
 set nu rnu
+
+set ttimeout
+set ttimeoutlen=1000
+set ttyfast
+
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
