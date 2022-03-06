@@ -20,9 +20,10 @@ nnoremap <C-k> <C-p>
 
 map <leader>n :tabnew<cr>
 map <leader>t :tabn<cr>
-map tt :tabn<cr>
-map nn :tabnew<cr>
 map <Leader>q :q<cr>
+
+nnoremap <Left>  <C-w>>
+nnoremap <Right> <C-w><
 
 set visualbell
 set noerrorbells
@@ -37,7 +38,7 @@ set number relativenumber
 set nu rnu
 
 set ttimeout
-set ttimeoutlen=1000
+set ttimeoutlen=50
 set ttyfast
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"

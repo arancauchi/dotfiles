@@ -9,6 +9,7 @@ local action_state = require("telescope.actions.state")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 
+requires = {"tami5/sqlite.lua"}
 require("telescope").setup({
 	defaults = {
 		file_sorter = require("telescope.sorters").get_fzy_sorter,
@@ -35,4 +36,4 @@ require("telescope").setup({
 })
 
 require('telescope').load_extension('fzy_native')
-
+require"telescope".load_extension("frecency")
