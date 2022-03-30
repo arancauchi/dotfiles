@@ -1,4 +1,4 @@
-set scrolloff=3
+set scrolloff=4
 
 " Remap undo
 map U <C-R>
@@ -17,12 +17,15 @@ cnoremap <C-k> <C-p>
 
 nnoremap <C-j> <C-n>
 nnoremap <C-k> <C-p>
-
-map <leader>n :tabnew<cr>
-map <leader>t :tabn<cr>
+nmap , $p
+map <silent> <leader>n :tabnew<cr>
+map <silent> <leader>t :tabn<cr>
+map <silent> <Leader>wq :wq<cr>
 map <Leader>q :q<cr>
+map <Leader>Q :q!<cr>
+map <leader>w :w<CR>
 
-nnoremap <Left>  <C-w>>
+nnoremap <Left> <C-w>>
 nnoremap <Right> <C-w><
 
 set visualbell

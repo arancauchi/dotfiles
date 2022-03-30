@@ -1,8 +1,9 @@
 source ~/.vimrc
 
+Plug 'tpope/vim-surround'
+
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 map <Leader>w :w<cr>
 
-set easymotion
 set surround

@@ -10,6 +10,7 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 
 requires = {"tami5/sqlite.lua"}
+
 require("telescope").setup({
 	defaults = {
 		file_sorter = require("telescope.sorters").get_fzy_sorter,
@@ -32,8 +33,20 @@ require("telescope").setup({
 			override_generic_sorter = false,
 			override_file_sorter = true,
 		},
+                frecency = {
+                  show_scores = true,
+                  show_unindexed = true,
+                  ignore_patterns = {"*.git/*", "*/tmp/*", "*.svg", "*.d.ts", "*.otf", "*.ttf"},
+                  disable_devicons = false,
+                  workspaces = {
+                    ["conf"]    = "$HOME/.conf",
+                    ["riemann"]    = "Users/aran/dev/riemann",
+                }
+            }
 	},
 })
 
 require('telescope').load_extension('fzy_native')
-require"telescope".load_extension("frecency")
+require("telescope").load_extension("frecency")
+
+require'nvim-web-devicons'
