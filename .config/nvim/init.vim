@@ -40,6 +40,11 @@ call plug#begin()
   Plug 'tpope/vim-surround'
   Plug 'jreybert/vimagit'
   Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'google/vim-maktaba'
+  Plug 'google/vim-codefmt'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'google/vim-glaive'
+  Plug 'tpope/vim-fugitive'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
@@ -69,6 +74,14 @@ set ma
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+nmap <leader>n :tabnext<cr>
+nmap <leader>N :tabnew<cr>
+nmap <space>gs :Gs<cr>
+nmap <space>gd :Gvdiffsplit master<cr>
+nmap <space>gm :Gvdiffsplit!<cr>
+nmap <space>ghf :diffget //2
+nmap <space>ghj :diffget //3
 
 nnoremap <leader>t :NERDTreeToggle<CR> <C-w>w<cr>
 nnoremap <leader>gf :NERDTreeFind<CR>
@@ -107,6 +120,7 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 
+set encoding=UTF-8
 set guicursor=i:ver1
 set guicursor=i:block
 set guicursor+=i:blinkon1

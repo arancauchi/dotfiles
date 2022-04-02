@@ -21,9 +21,11 @@ nmap , $p
 map <silent> <leader>n :tabnew<cr>
 map <silent> <leader>t :tabn<cr>
 map <silent> <Leader>wq :wq<cr>
-map <Leader>q :q<cr>
+map <space>q :q<cr>
 map <Leader>Q :q!<cr>
-map <leader>w :w<CR>
+map <space>w :w<CR>
+map <space>r :source $MYVIMRC <cr>
+map q :noh<cr>
 
 nnoremap <Left> <C-w>>
 nnoremap <Right> <C-w><
