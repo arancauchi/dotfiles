@@ -12,6 +12,7 @@ set shortmess=A
 autocmd VimEnter * luafile $HOME/.config/nvim/lua/init.lua
 
 call plug#begin()
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'preservim/nerdtree'
   Plug 'ellisonleao/gruvbox.nvim'
   Plug 'nvim-lua/plenary.nvim'
@@ -45,6 +46,8 @@ call plug#begin()
   Plug 'ryanoasis/vim-devicons'
   Plug 'google/vim-glaive'
   Plug 'tpope/vim-fugitive'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'milch/vim-fastlane'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
@@ -67,25 +70,28 @@ endfunction
 " autocmd CursorHold * :call <SID>show_hover_doc()
 
 let NERDTreeShowHidden=1
-autocmd VimEnter * NERDTreeFind | wincmd p
+"autocmd VimEnter * NERDTreeFind | wincmd p
 "set modifiable
 set ma
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 nmap <leader>n :tabnext<cr>
 nmap <leader>N :tabnew<cr>
-nmap <space>gs :Gs<cr>
-nmap <space>gd :Gvdiffsplit master<cr>
-nmap <space>gm :Gvdiffsplit!<cr>
+nmap <space>gp :Git pull<cr>
+nmap <space>gP :Git push --no-verify<cr>
+nmap <space>gs :G<cr>
+nmap <space>gm :Gvdiffsplit master<cr>
+nmap <space>gM :Gvdiffsplit!<cr>
 nmap <space>ghf :diffget //2
 nmap <space>ghj :diffget //3
 
 nnoremap <leader>t :NERDTreeToggle<CR> <C-w>w<cr>
 nnoremap <leader>gf :NERDTreeFind<CR>
 map <silent> <esc> :noh <CR>
+nnoremap <leader>b :buffers<CR>:buffer<Space>
 
 map <silent> <C-w>o :noh <CR>
 
