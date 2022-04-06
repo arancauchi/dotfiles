@@ -4,6 +4,9 @@ set scrolloff=4
 map U <C-R>
 map 0 ^
 
+nnoremap <SPACE> <Nop>
+map <Space> <Leader>
+
 nnoremap <expr> mm (line('$')/2).'G'.'zz'
 nnoremap <expr> MM (line('$')*0.75).'G'.'zz'
 

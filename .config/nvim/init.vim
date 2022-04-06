@@ -1,4 +1,3 @@
-
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set termguicolors
 set background=dark
@@ -8,6 +7,11 @@ let &packpath = &runtimepath
 source ~/.vimrc
 source ~/.config/nvim/coc.vim
 set shortmess=A
+let g:fzf_command_prefix = 'Fzf'
+set encoding=UTF-8
+set guicursor=i:ver1
+set guicursor=i:block
+set guicursor+=i:blinkon1
 
 autocmd VimEnter * luafile $HOME/.config/nvim/lua/init.lua
 
@@ -18,12 +22,11 @@ call plug#begin()
   Plug 'nvim-lua/plenary.nvim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'tpope/vim-surround'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'wookayin/fzf-ripgrep.vim'
   Plug 'easymotion/vim-easymotion'
+  Plug 'idbrii/vim-endoscope'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
   Plug 'HerringtonDarkholme/yats.vim'
@@ -37,9 +40,9 @@ call plug#begin()
   Plug 'neoclide/coc-eslint'
   Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'tami5/sqlite.lua'
-  Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-surround'
   Plug 'jreybert/vimagit'
+  Plug 'airblade/vim-gitgutter'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'google/vim-maktaba'
   Plug 'google/vim-codefmt'
@@ -48,6 +51,9 @@ call plug#begin()
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdcommenter'
   Plug 'milch/vim-fastlane'
+  Plug 'stsewd/fzf-checkout.vim'
+  Plug 'camspiers/animate.vim'
+  Plug 'camspiers/lens.vim'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
@@ -78,8 +84,15 @@ set ma
 "autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 "autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
+imap <C-s> <Plug>(endoscope-close-pair)
+
+let g:NERDCreateDefaultMappings = 0 
+nnoremap <silent> <leader>cc :call nerdcommenter#Comment('x', 'toggle')<CR>
+
 nmap <leader>n :tabnext<cr>
 nmap <leader>N :tabnew<cr>
+
+nmap <space>gg :FzfGBranches<cr>
 nmap <space>gp :Git pull<cr>
 nmap <space>gP :Git push --no-verify<cr>
 nmap <space>gs :G<cr>
@@ -91,7 +104,6 @@ nmap <space>ghj :diffget //3
 nnoremap <leader>t :NERDTreeToggle<CR> <C-w>w<cr>
 nnoremap <leader>gf :NERDTreeFind<CR>
 map <silent> <esc> :noh <CR>
-nnoremap <leader>b :buffers<CR>:buffer<Space>
 
 map <silent> <C-w>o :noh <CR>
 
@@ -102,12 +114,14 @@ noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
 
 noremap U <C-r>
-" Search through history using fzf
-noremap <C-r> :History<cr>
+noremap <C-r> :FzfHistory<cr>
+noremap <C-t> :FzfFiles<cr>
 
+" Telescope utils 
 nnoremap ff <cmd>Telescope frecency<cr>
 nnoremap <leader>fa <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
 nnoremap <leader>r :source $MYVIMRC<CR>
 nnoremap <leader>w :w<CR>
@@ -126,7 +140,3 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 
-set encoding=UTF-8
-set guicursor=i:ver1
-set guicursor=i:block
-set guicursor+=i:blinkon1
