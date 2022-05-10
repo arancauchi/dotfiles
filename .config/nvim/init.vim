@@ -2,16 +2,22 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set termguicolors
 set background=dark
 set shell=/bin/zsh
-let &packpath = &runtimepath
+set updatetime=100
 
 source ~/.vimrc
 source ~/.config/nvim/coc.vim
 set shortmess=A
-let g:fzf_command_prefix = 'Fzf'
 set encoding=UTF-8
 set guicursor=i:ver1
 set guicursor=i:block
 set guicursor+=i:blinkon1
+set modifiable
+let g:coc_global_extensions = ['coc-tsserver']
+let NERDTreeShowHidden=1
+let g:NERDCreateDefaultMappings = 0 
+let g:EasyMotion_smartcase = 1
+let &packpath = &runtimepath
+let g:fzf_command_prefix = 'Fzf'
 
 autocmd VimEnter * luafile $HOME/.config/nvim/lua/init.lua
 
@@ -19,7 +25,6 @@ call plug#begin()
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'preservim/nerdtree'
   Plug 'ellisonleao/gruvbox.nvim'
-  Plug 'nvim-lua/plenary.nvim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf.vim'
@@ -27,8 +32,6 @@ call plug#begin()
   Plug 'wookayin/fzf-ripgrep.vim'
   Plug 'easymotion/vim-easymotion'
   Plug 'idbrii/vim-endoscope'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-telescope/telescope-fzy-native.nvim'
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
   Plug 'leafgarland/typescript-vim'
@@ -37,11 +40,9 @@ call plug#begin()
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'jparise/vim-graphql'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'neoclide/coc-eslint'
-  Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'tami5/sqlite.lua'
   Plug 'tpope/vim-surround'
-  Plug 'jreybert/vimagit'
+  ""Plug 'jreybert/vimagit'
   Plug 'airblade/vim-gitgutter'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'google/vim-maktaba'
@@ -52,15 +53,17 @@ call plug#begin()
   Plug 'scrooloose/nerdcommenter'
   Plug 'milch/vim-fastlane'
   Plug 'stsewd/fzf-checkout.vim'
-  Plug 'camspiers/animate.vim'
-  Plug 'camspiers/lens.vim'
+  Plug 'glepnir/dashboard-nvim'
+  Plug 'NoahTheDuke/vim-just'
+  Plug 'jesseleite/vim-agriculture'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-frecency.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'pwntester/octo.nvim'
+  Plug 'kien/ctrlp.vim'
+  Plug 'rking/ag.vim'
 call plug#end()
-
-let g:coc_global_extensions = ['coc-tsserver']
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
 
 function! ShowDocIfNoDiagnostic(timer_id)
   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
@@ -72,22 +75,10 @@ function! s:show_hover_doc()
   call timer_start(500, 'ShowDocIfNoDiagnostic')
 endfunction
 
-" autocmd CursorHoldI * :call <SID>show_hover_doc()
-" autocmd CursorHold * :call <SID>show_hover_doc()
-
-let NERDTreeShowHidden=1
-"autocmd VimEnter * NERDTreeFind | wincmd p
-"set modifiable
-set ma
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-"autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
 imap <C-s> <Plug>(endoscope-close-pair)
 
-let g:NERDCreateDefaultMappings = 0 
 nnoremap <silent> <leader>cc :call nerdcommenter#Comment('x', 'toggle')<CR>
+vnoremap <silent> <leader>cc :call nerdcommenter#Comment('x', 'toggle')<CR>
 
 nmap <leader>n :tabnext<cr>
 nmap <leader>N :tabnew<cr>
@@ -96,11 +87,14 @@ nmap <space>gg :FzfGBranches<cr>
 nmap <space>gp :Git pull<cr>
 nmap <space>gP :Git push --no-verify<cr>
 nmap <space>gs :G<cr>
-nmap <space>gm :Gvdiffsplit master<cr>
+nmap <space>gm :Gvdiff master<cr>
 nmap <space>gM :Gvdiffsplit!<cr>
-nmap <space>ghf :diffget //2
-nmap <space>ghj :diffget //3
+nmap <space>ghf :diffget //2<cr>
+nmap <space>ghj :diffget //3<cr>
 
+nmap <space>l <Cmd>CocCommand eslint.executeAutofix<cr>
+map <C-\> <Plug>(coc-terminal-toggle)
+nmap <space>e <Cmd>CocCommand explorer<CR>
 nnoremap <leader>t :NERDTreeToggle<CR> <C-w>w<cr>
 nnoremap <leader>gf :NERDTreeFind<CR>
 map <silent> <esc> :noh <CR>
@@ -112,21 +106,25 @@ noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
 noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
+nnoremap <leader>v <C-w>v<C-w>w<C-w>n<C-w>w<C-w>c
 
 noremap U <C-r>
 noremap <C-r> :FzfHistory<cr>
 noremap <C-t> :FzfFiles<cr>
 
-" Telescope utils 
-nnoremap ff <cmd>Telescope frecency<cr>
-nnoremap <leader>fa <cmd>Telescope find_files hidden=true<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
+vmap <Leader>/ <Plug>AgRawVisualSelection
+
+nnoremap ff <cmd>CtrlPMixed<cr>
+nnoremap fr <cmd>Telescope frecency<cr>
+nnoremap fa <cmd>Telescope find_files hidden=true<cr>
+nnoremap fg <cmd>Rg<cr>
+"nnoremap fb <cmd>CocList buffers<cr>
+nnoremap fb <cmd>Telescope buffers<cr>
+nnoremap fo <cmd>Telescope oldfiles<cr>
 
 nnoremap <leader>r :source $MYVIMRC<CR>
 nnoremap <leader>w :w<CR>
 
-let g:EasyMotion_smartcase = 1
 nmap <C-j> <Plug>(easymotion-sn)
 
 " move selected lines down one line
@@ -140,3 +138,4 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 
+let g:dashboard_default_executive ='telescope'

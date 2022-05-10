@@ -1,5 +1,9 @@
 set scrolloff=4
 
+" yank and paste to blackhole register
+map <leader>y "0y
+map <leader>p "0p
+
 " Remap undo
 map U <C-R>
 map 0 ^
