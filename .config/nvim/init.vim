@@ -34,12 +34,7 @@ call plug#begin()
   Plug 'idbrii/vim-endoscope'
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-  Plug 'pangloss/vim-javascript'
-  Plug 'maxmellon/vim-jsx-pretty'
   Plug 'jparise/vim-graphql'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'tami5/sqlite.lua'
   Plug 'tpope/vim-surround'
   ""Plug 'jreybert/vimagit'
@@ -53,17 +48,35 @@ call plug#begin()
   Plug 'scrooloose/nerdcommenter'
   Plug 'milch/vim-fastlane'
   Plug 'stsewd/fzf-checkout.vim'
-  Plug 'glepnir/dashboard-nvim'
   Plug 'NoahTheDuke/vim-just'
   Plug 'jesseleite/vim-agriculture'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
-  Plug 'nvim-telescope/telescope-frecency.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  "Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'pwntester/octo.nvim'
   Plug 'kien/ctrlp.vim'
   Plug 'rking/ag.vim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  Plug 'github/copilot.vim'
+
+  " JS Specific
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+  Plug 'pangloss/vim-javascript'
+  Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+  Plug 'jparise/vim-graphql'
+  Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+
 call plug#end()
+
+" Fixes issues with syntax highlighting
+"autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+"autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 function! ShowDocIfNoDiagnostic(timer_id)
   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
@@ -116,8 +129,8 @@ vmap <Leader>/ <Plug>AgRawVisualSelection
 
 nnoremap ff <cmd>CtrlPMixed<cr>
 nnoremap fr <cmd>Telescope frecency<cr>
-nnoremap fa <cmd>Telescope find_files hidden=true<cr>
-nnoremap fg <cmd>Rg<cr>
+nnoremap fa <cmd>Telescope find_files<cr>
+nnoremap fg <cmd>RgFzf<cr>
 "nnoremap fb <cmd>CocList buffers<cr>
 nnoremap fb <cmd>Telescope buffers<cr>
 nnoremap fo <cmd>Telescope oldfiles<cr>
@@ -138,4 +151,3 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 
-let g:dashboard_default_executive ='telescope'
